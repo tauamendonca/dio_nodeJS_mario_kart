@@ -6,6 +6,7 @@ export const characters = [
         MANOBRABILIDADE: 3,
         PODER: 3,
         PONTOS: 0,
+        RODOU: false,
     },
     {
         ID: 2,
@@ -14,6 +15,7 @@ export const characters = [
         MANOBRABILIDADE: 4,
         PODER: 4,
         PONTOS: 0,
+        RODOU: false,
     },
     {
         ID: 3,
@@ -22,6 +24,7 @@ export const characters = [
         MANOBRABILIDADE: 4,
         PODER: 2,
         PONTOS: 0,
+        RODOU: false,
     },
     {
         ID: 4,
@@ -30,6 +33,7 @@ export const characters = [
         MANOBRABILIDADE: 4,
         PODER: 3,
         PONTOS: 0,
+        RODOU: false,
     },
     {
         ID: 5,
@@ -38,6 +42,7 @@ export const characters = [
         MANOBRABILIDADE: 2,
         PODER: 5,
         PONTOS: 0,
+        RODOU: false,
     },
     {
         ID: 6,
@@ -46,5 +51,6 @@ export const characters = [
         MANOBRABILIDADE: 2,
         PODER: 5,
         PONTOS: 0,
+        RODOU: false,
     },
 ];

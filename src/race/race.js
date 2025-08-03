@@ -1,7 +1,9 @@
+// Rola um dado de 6 faces
 async function rollDice() {
   return Math.floor(Math.random() * 6) + 1;
 }
 
+// Determina qual "bloco" de pista será o próximo 
 async function getRandomBlock() {
   let random = Math.random();
   let result;
@@ -20,6 +22,7 @@ async function getRandomBlock() {
   return result;
 }
 
+// Imprime o resultado da rolagem de dados dos jogadores
 async function logRollResult(characterName, block, diceResult, attribute) {
   console.log(
     `${characterName} 🎲 rolou um dado de ${block} ${diceResult} + ${attribute} = ${
@@ -28,7 +31,12 @@ async function logRollResult(characterName, block, diceResult, attribute) {
   );
 }
 
+// Função principal que inicia a corrida
 export async function playRaceEngine(character1, character2) {
+  console.log(
+    `🏁🚨 MARIO KART! Corrida entre ${character1.NOME} e ${character2.NOME} começando...\n`
+  );
+
   for (let round = 1; round <= 5; round++) {
     console.log(`🏁 Rodada ${round}`);
 
@@ -82,6 +90,8 @@ export async function playRaceEngine(character1, character2) {
       );
     }
 
+    // No caso de blocos de CONFRONTO, o desafio proposto pelo tutor da DIO é adicionar bombas e cascos, com modificações específicas na pontuação
+    // decidi ir um pouco mais além e adicionar a casca de banana, item do jogo Mario Kart que faz o personagem rodar e perder velocidade
     if (block === "CONFRONTO") {
       let powerResult1 = diceResult1 + character1.PODER;
       let powerResult2 = diceResult2 + character2.PODER;
