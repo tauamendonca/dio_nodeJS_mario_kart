@@ -8,11 +8,16 @@ export async function playRaceEngine(characters) {
   );
 
   for (let round = 1; round <= 5; round++) {
+    console.log("-----------------------------");
+    console.log("   ");
     console.log(`🏁 Rodada ${round}`);
+    console.log("   ");
 
     // sorteia o bloco e anuncia o que aconteceu
     let block = await blocks.getRandomBlock(round);
 
+    console.log("   ");
+    
     // rola os dados
     let diceResults = await utils.rollDice(characters);
 

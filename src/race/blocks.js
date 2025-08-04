@@ -4,18 +4,33 @@ import * as utils from './utils.js';
 // Determina qual "bloco" de pista será o próximo 
 // Aqui fiz uma mudança para nunca haver um confronto na primeira rodada
 async function getRandomBlock(round) {
-
   let random = Math.random();
   let result;
   
-  if (round < 1) {
-    switch (true) {
+  if (round === 1) {
+      switch (true) {
+        case random > 0.66:
+            console.log(`UMA CURVA PARA A DIREITA!`);
+            result = "CURVA";
+            break;
         case random < 0.33:
+            console.log(`UMA CURVA PARA A ESQUERDA!`);
+            result = "CURVA";
+            break;
+        default:
+            console.log(`OS CORREDORES ENTRAM EM UMA RETA!`);
+            result = "RETA";    
+      } 
+  }
+  
+  if (round > 1) {
+    switch (true) {
+        case random > 0.66:
             console.log(`OS CORREDORES ENTRAM EM UMA RETA!`);
             result = "RETA";
             break;
-        case random < 0.66:
-            if (random > 0.49) {  
+        case random < 0.33:
+            if (random < 0.16) {  
                 console.log(`UMA CURVA PARA A ESQUERDA!`);
             } else {
                 console.log(`UMA CURVA PARA A DIREITA!`);
@@ -25,25 +40,12 @@ async function getRandomBlock(round) {
         default:
             console.log(`É HORA DO CONFRONTO!`);
             result = "CONFRONTO";
-    }
-  } else {
-    switch (true) {
-    case random < 0.33:
-      console.log(`OS CORREDORES ENTRAM EM UMA RETA!`);
-      result = "RETA";
-      break;
-    case random > 0.66:
-        console.log(`UMA CURVA PARA A ESQUERDA!`);
-        result = "CURVA";
-        break;
-    default:
-        console.log(`UMA CURVA PARA A DIREITA!`);
-        result = "CURVA";
-    }
+      }  
   }
-  return result;
-};
-
+  
+    return result;
+ };
+  
 
     
 //TESTE PARA BLOCOS DE RETA
@@ -70,11 +72,8 @@ async function straigthLane(charactersList) {
         charactersList[1].speed
       );
 
-    verifyBlockWinner (characters, totalTestSkills);
-
-    console.log("-----------------------------"); 
-      
-    return true 
+    console.log("   ");
+    return await verifyBlockWinner (characters, totalTestSkills);
 };
 
 
@@ -101,11 +100,8 @@ async function curveLane(charactersList) {
         charactersList[1].handling
     );
 
-    verifyBlockWinner (characters, totalTestSkills);
-
-    console.log("-----------------------------"); 
-
-    return true
+    console.log("   ");
+    return await verifyBlockWinner (characters, totalTestSkills);
 };
 
 
@@ -113,12 +109,13 @@ async function curveLane(charactersList) {
 // verificando o vencedor de blocos de retas e curvas
 async function verifyBlockWinner (characters, totalTestSkills) {
      if (totalTestSkills[0] > totalTestSkills[1]) {
-      console.log(`${characters[0].name} marcou um ponto!`);
-      characters[0].score++;
+       console.log(`${characters[0].name} marcou um ponto!`);
+       characters[0].score++;
     } else if (totalTestSkills[0] > totalTestSkills[1]) {
       console.log(`${characters[1].name} marcou um ponto!`);
       characters[1].score++;
     }
+    console.log("   ");
 };
 
 
@@ -166,8 +163,8 @@ async function battle(charactersList) {
           ? "Confronto empatado! Nenhum ponto foi perdido"
           : ""
       );
-
-      console.log("-----------------------------"); 
+  
+      console.log("   ");
     };
 
 

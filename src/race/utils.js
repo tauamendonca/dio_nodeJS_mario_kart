@@ -5,7 +5,7 @@ async function rollDice(charactersList) {
     for (let i = 0; i < charactersList.length; i++) {
       diceResults.push(Math.floor(Math.random() * 6) + 1)
     }
-    
+
   return diceResults; 
 }
 
