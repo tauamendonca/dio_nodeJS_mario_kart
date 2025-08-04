@@ -73,7 +73,7 @@ async function straigthLane(charactersList) {
       );
 
     console.log("   ");
-    return await verifyBlockWinner (characters, totalTestSkills);
+    return await verifyBlockWinner (charactersList, totalTestSkills);
 };
 
 
@@ -101,9 +101,8 @@ async function curveLane(charactersList) {
     );
 
     console.log("   ");
-    return await verifyBlockWinner (characters, totalTestSkills);
+    return await verifyBlockWinner (charactersList, totalTestSkills);
 };
-
 
 
 // verificando o vencedor de blocos de retas e curvas
@@ -111,9 +110,11 @@ async function verifyBlockWinner (characters, totalTestSkills) {
      if (totalTestSkills[0] > totalTestSkills[1]) {
        console.log(`${characters[0].name} marcou um ponto!`);
        characters[0].score++;
-    } else if (totalTestSkills[0] > totalTestSkills[1]) {
+    } else if (totalTestSkills[0] < totalTestSkills[1]) {
       console.log(`${characters[1].name} marcou um ponto!`);
       characters[1].score++;
+    } else {
+      console.log('Passaram lado a lado! Ninguém pontua nessa rodada!')
     }
     console.log("   ");
 };
@@ -128,7 +129,9 @@ async function battle(charactersList) {
       let powerResult1 = charactersList[0].diceroll + charactersList[0].power;
       let powerResult2 = charactersList[1].diceroll + charactersList[1].power;
 
-      console.log(`${charactersList[0].name} confrontou com ${charactersList[1].name}! 🥊`);
+      console.log(`${charactersList[0].name} entrou em confronto com ${charactersList[1].name}! 🥊`);
+
+      console.log("   ");
 
       await utils.logRollResult(
         charactersList[0].name,
@@ -144,11 +147,13 @@ async function battle(charactersList) {
         charactersList[1].power
       );
 
+      console.log("   ");
+
       if (powerResult1 > powerResult2 && charactersList[1].score > 0) {
         console.log(
           `${charactersList[0].name} venceu o confronto! ${charactersList[1].name} perdeu 1 ponto 🐢`
         );
-        characterList[1].score--;
+        charactersList[1].score--;
       }
 
       if (powerResult2 > powerResult1 && charactersList[0].score > 0) {
@@ -156,6 +161,19 @@ async function battle(charactersList) {
           `${charactersList[1].name} venceu o confronto! ${charactersList[0].name} perdeu 1 ponto 🐢`
         );
         charactersList[0].score--;
+      }
+
+
+      if (powerResult1 > powerResult2 && charactersList[1].score === 0) {
+        console.log(
+          `${charactersList[0].name} venceu o confronto! Mas ${charactersList[1].name} está zerado! 🐢`
+        );
+      }
+
+      if (powerResult2 > powerResult1 && charactersList[0].score === 0) {
+        console.log(
+          `${charactersList[1].name} venceu o confronto! Mas ${charactersList[0].name} está zerado! 🐢`
+        );
       }
 
       console.log(
