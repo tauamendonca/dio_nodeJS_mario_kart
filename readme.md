@@ -1,7 +1,8 @@
 <h1>Desafio de projeto DIO Node JS: Mario Kart.JS</h1>
 
-<h2> Professor: Felipe Silva Aguiar </h2>
-
+<h4> Professor: Felipe Silva Aguiar</h4>
+<a href = "https://github.com/digitalinnovationone/formacao-nodejs/tree/main/03-projeto-mario-kart">Link para o projeto original</a>
+<br><br>
 
   <table>
         <tr>
@@ -83,24 +84,56 @@
 
 <b>Jogadores:</b>
 
-<input type="checkbox" id="jogadores-item" />
-<label for="jogadores-item">O Computador deve receber dois personagens para disputar a corrida em um objeto cada</label>
+<label for="jogadores-item">✔️ O Computador deve receber dois personagens para disputar a corrida em um objeto cada</label>
 
 <b>Pistas:</b>
 
 <ul>
-  <li><input type="checkbox" id="pistas-1-item" /> <label for="pistas-1-item">Os personagens irão correr em uma pista aleatória de 5 rodadas</label></li>
-  <li><input type="checkbox" id="pistas-2-item" /> <label for="pistas-2-item">A cada rodada, será sorteado um bloco da pista que pode ser uma reta, curva ou confronto</label>
+  <li><label for="pistas-1-item">✔️ Os personagens irão correr em uma pista aleatória de 5 rodadas</label></li>
+  <li><label for="pistas-2-item">✔️ A cada rodada, será sorteado um bloco da pista que pode ser uma reta, curva ou confronto</label>
     <ul>
-      <li><input type="checkbox" id="pistas-2-1-item" /> <label for="pistas-2-1-item">Caso o bloco da pista seja uma RETA, o jogador deve jogar um dado de 6 lados e somar o atributo VELOCIDADE, quem vencer ganha um ponto</label></li>
-      <li><input type="checkbox" id="pistas-2-2-item" /> <label for="pistas-2-2-item">Caso o bloco da pista seja uma CURVA, o jogador deve jogar um dado de 6 lados e somar o atributo MANOBRABILIDADE, quem vencer ganha um ponto</label></li>
-      <li><input type="checkbox" id="pistas-2-3-item" /> <label for="pistas-2-3-item">Caso o bloco da pista seja um CONFRONTO, o jogador deve jogar um dado de 6 lados e somar o atributo PODER, quem perder, perde um ponto</label></li>
-      <li><input type="checkbox" id="pistas-2-3-item" /> <label for="pistas-2-3-item">Nenhum jogador pode ter pontuação negativa (valores abaixo de 0)</label></li>
+      <li><label for="pistas-2-1-item">✔️ Caso o bloco da pista seja uma RETA, o jogador deve jogar um dado de 6 lados e somar o atributo VELOCIDADE, quem vencer ganha um ponto</label></li>
+      <li><label for="pistas-2-2-item">✔️ Caso o bloco da pista seja uma CURVA, o jogador deve jogar um dado de 6 lados e somar o atributo MANOBRABILIDADE, quem vencer ganha um ponto</label></li>
+      <li><label for="pistas-2-3-item">✔️ Caso o bloco da pista seja um CONFRONTO, o jogador deve jogar um dado de 6 lados e somar o atributo PODER, quem perder, perde um ponto</label></li>
+      <li><label for="pistas-2-3-item">✔️ Nenhum jogador pode ter pontuação negativa (valores abaixo de 0)</label></li>
     </ul>
   </li>
 </ul>
 
 <b>Condição de vitória:</b>
 
-<input type="checkbox" id="vitoria-item" />
-<label for="vitoria-item">Ao final, vence quem acumulou mais pontos</label>
+<label for="vitoria-item">✔️ Ao final, vence quem acumulou mais pontos</label>
+
+<b>Desafios:</b>
+
+<ul>
+<li><label for="propostos-dio">Desafios propostos pela DIO: <ul>
+  <li><label for="desafios-1-item">✔️ No caso de um confronto, sortear aleatoriamente se é um Casco (-1 ponto) ou um Bomba(-2 pontos)
+</label></li>
+  <li><label for="desafios-2-item">✔️ Quem vence o confronto ganha um turbo (+1 ponto) aleatoriamente</label>
+  </li>
+</li>
+</ul>
+<li><label for="incluidos-por-mim">Incluídos por mim: <ul>
+    <li><label for="desafios-3-item">✔️ No caso de um confronto também será sorteado aleatoriamente a Casca de Banana (-1 para manobrabilidade e velocidade na próxima rodada - efeito temporário)</label>
+    </li>
+    <li><label for="desafios-4-item">✔️ Permitir seleção de personagem, quantidade de trechos/blocos de corrida e número de jogadores antes do início da corrida</label>
+    </li>
+    <li><label for="desafios-5-item">✔️ Permitir corridas com mais de 2 personagens mas refatorar a lógica para que mantenha os confrontos de 1 contra 1</label>
+    </li>
+    <li><label for="desafios-6-item">✔️ Devido ao item anterior, fazer mudança na regra de negócio: somente trechos de corrida contam para o término da corrida, confrontos não são considerados para o progresso até o fim da corrida</label>
+    </li>
+    <li><label for="desafios-7-item">✔️ Adiconar pausas de tempo para poder acompanhar o progresso passo a passo da corrida</label>
+    </li>
+    <li><label for="desafios-8-item">✔️ Mostrar o resultado completo da corrida (posições de todos os jogadores) e o progresso durante</label>
+    </li>
+</li>
+</ul>
+</ul>
+
+<b>Observação:</b>
+<ul><li>
+Separei as lógicas de corrida, seleção de personagens e dos blocos, componentizado levemente para separar por função.</li>
+<li>
+Também modifiquei algumas lógicas, como por exemplo retirei a possibilidade de confrontos na primeira rodada e modifiquei propriedades dos personagens. Vide observações no código para esses casos.</li>
+</ul>
