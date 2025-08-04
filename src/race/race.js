@@ -1,159 +1,66 @@
-// Rola um dado de 6 faces
-async function rollDice() {
-  return Math.floor(Math.random() * 6) + 1;
-}
-
-// Determina qual "bloco" de pista será o próximo 
-async function getRandomBlock() {
-  let random = Math.random();
-  let result;
-
-  switch (true) {
-    case random < 0.33:
-      result = "RETA";
-      break;
-    case random < 0.66:
-      result = "CURVA";
-      break;
-    default:
-      result = "CONFRONTO";
-  }
-
-  return result;
-}
-
-// Imprime o resultado da rolagem de dados dos jogadores
-async function logRollResult(characterName, block, diceResult, attribute) {
-  console.log(
-    `${characterName} 🎲 rolou um dado de ${block} ${diceResult} + ${attribute} = ${
-      diceResult + attribute
-    }`
-  );
-}
+import * as utils from './utils.js';
+import * as blocks from './blocks.js';
 
 // Função principal que inicia a corrida
-export async function playRaceEngine(character1, character2) {
+export async function playRaceEngine(characters) {
   console.log(
-    `🏁🚨 MARIO KART! Corrida entre ${character1.NOME} e ${character2.NOME} começando...\n`
+    `🏁🚨 MARIO KART! Corrida entre ${characters[0].name} e ${characters[1].name} começando...\n`
   );
 
   for (let round = 1; round <= 5; round++) {
     console.log(`🏁 Rodada ${round}`);
 
-    // sorteia o bloco
-    let block = await getRandomBlock();
-    console.log(`Bloco: ${block}`);
+    // sorteia o bloco e anuncia o que aconteceu
+    let block = await blocks.getRandomBlock(round);
 
     // rola os dados
-    let diceResult1 = await rollDice();
-    let diceResult2 = await rollDice();
+    let diceResults = await utils.rollDice(characters);
+
+    for (let i = 0; i < characters.length; i++) {
+      characters[i] = {
+        ...characters[i],
+        diceroll: diceResults[i]
+      }
+    }
 
     //teste de habilidade
-    let totalTestSkill1 = 0;
-    let totalTestSkill2 = 0;
-
-    if (block === "RETA") {
-      totalTestSkill1 = diceResult1 + character1.VELOCIDADE;
-      totalTestSkill2 = diceResult2 + character2.VELOCIDADE;
-
-      await logRollResult(
-        character1.NOME,
-        "velocidade",
-        diceResult1,
-        character1.VELOCIDADE
-      );
-
-      await logRollResult(
-        character2.NOME,
-        "velocidade",
-        diceResult2,
-        character2.VELOCIDADE
-      );
-    }
-
-    if (block === "CURVA") {
-      totalTestSkill1 = diceResult1 + character1.MANOBRABILIDADE;
-      totalTestSkill2 = diceResult2 + character2.MANOBRABILIDADE;
-
-      await logRollResult(
-        character1.NOME,
-        "manobrabilidade",
-        diceResult1,
-        character1.MANOBRABILIDADE
-      );
-
-      await logRollResult(
-        character2.NOME,
-        "manobrabilidade",
-        diceResult2,
-        character2.MANOBRABILIDADE
-      );
-    }
-
-    // No caso de blocos de CONFRONTO, o desafio proposto pelo tutor da DIO é adicionar bombas e cascos, com modificações específicas na pontuação
-    // decidi ir um pouco mais além e adicionar a casca de banana, item do jogo Mario Kart que faz o personagem rodar e perder velocidade
-    if (block === "CONFRONTO") {
-      let powerResult1 = diceResult1 + character1.PODER;
-      let powerResult2 = diceResult2 + character2.PODER;
-
-      console.log(`${character1.NOME} confrontou com ${character2.NOME}! 🥊`);
-
-      await logRollResult(
-        character1.NOME,
-        "poder",
-        diceResult1,
-        character1.PODER
-      );
-
-      await logRollResult(
-        character2.NOME,
-        "poder",
-        diceResult2,
-        character2.PODER
-      );
-
-      if (powerResult1 > powerResult2 && character2.PONTOS > 0) {
-        console.log(
-          `${character1.NOME} venceu o confronto! ${character2.NOME} perdeu 1 ponto 🐢`
-        );
-        character2.PONTOS--;
-      }
-
-      if (powerResult2 > powerResult1 && character1.PONTOS > 0) {
-        console.log(
-          `${character2.NOME} venceu o confronto! ${character1.NOME} perdeu 1 ponto 🐢`
-        );
-        character1.PONTOS--;
-      }
-
-      console.log(
-        powerResult2 === powerResult1
-          ? "Confronto empatado! Nenhum ponto foi perdido"
-          : ""
-      );
-    }
-
-    // verificando o vencedor
-    if (totalTestSkill1 > totalTestSkill2) {
-      console.log(`${character1.NOME} marcou um ponto!`);
-      character1.PONTOS++;
-    } else if (totalTestSkill2 > totalTestSkill1) {
-      console.log(`${character2.NOME} marcou um ponto!`);
-      character2.PONTOS++;
-    }
-
-    console.log("-----------------------------");
+    switch (block) {
+      case 'RETA': 
+          await blocks.straigthLane(characters) 
+          break;
+      case 'CURVA': 
+          await blocks.curveLane(characters);
+          break;
+      case 'CONFRONTO': 
+          await blocks.battle(characters);
+          break;
+      default : console.log('SEGUE ACIRRADA A CORRIDA!');
+    };
   }
 }
 
-export async function declareWinner(character1, character2) {
-  console.log("Resultado final:");
-  console.log(`${character1.NOME}: ${character1.PONTOS} ponto(s)`);
-  console.log(`${character2.NOME}: ${character2.PONTOS} ponto(s)`);
+export async function declareWinner(characters) {
+  console.log("    ");
+  console.log("=====================================");
+  console.log("🏁🏁🏁🏁 RESULTADO FINAL 🏁🏁🏁🏁");
+  console.log("=====================================");
+  console.log("    ");
 
-  if (character1.PONTOS > character2.PONTOS)
-    console.log(`\n${character1.NOME} venceu a corrida! Parabéns! 🏆`);
-  else if (character2.PONTOS > character1.PONTOS)
-    console.log(`\n${character2.NOME} venceu a corrida! Parabéns! 🏆`);
+  // characters.sort(() => {});
+
+  for (let i = 0; i < characters.length; i++) {
+    console.log(`POSIÇÃO ${i + 1}º --- ${characters[i].name} --- ${characters[i].score} ponto(s)`);   
+  }
+
+  console.log("    ");
+  console.log("    ");
+  
+  if (characters[0].score > characters[1].score)
+    console.log(`\n${characters[0].name} venceu a corrida! Parabéns! 🏆`);
+  else if (characters[1].score > characters[0].score)
+    console.log(`\n${characters[1].name} venceu a corrida! Parabéns! 🏆`);
   else console.log("A corrida terminou em empate");
+  
+  console.log("    ");
+  console.log("=====================================");
 }

@@ -1,8 +1,7 @@
 import { playRaceEngine, declareWinner } from './race/race.js';
 import { characters } from './characters.js';
 
-const player1 = characters[5];
-const player2 = characters[1];
+const players = [characters[1], characters[5]];
 
 (async function main() {
 console.log(`
@@ -14,6 +13,6 @@ console.log(`
 ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝ ╚═════╝       ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝
 `);
 
-  await playRaceEngine(player1, player2);
-  await declareWinner(player1, player2);
+  await playRaceEngine(players);
+  await declareWinner(players);
 })();
