@@ -104,7 +104,9 @@ async function verifyLead (racers) {
   let racersPosition = racers.sort((a,b) => b.totalTestSkills - a.totalTestSkills);
 
   if (racersPosition[0].totalTestSkills > racersPosition[1].totalTestSkills) {
-    console.log(`${racersPosition[0].name} passa liderando o trecho!`);
+    console.log(`${racersPosition[0].name} passa liderando o trecho, ganhando 3 pontos!`);
+    console.log(`Seguido de perto por ${racersPosition[1].name} que passa em segundo, ganhando 2 pontos!`);
+    console.log(`E logo atrás, o terceiro colocado ${racersPosition[2].name} passa, e ganha 1 ponto!`);
   } else if (racersPosition[0].totalTestSkills === racersPosition[1].totalTestSkills) {
     console.log(`Os corredores passaram lado a lado! Ninguém pontua nessa rodada!`);
   } else {
