@@ -68,10 +68,6 @@ async function racingLanes(charactersList, laneType) {
 
   await verifyLead(racers);
   await raceScore(racers);
-
-  for (let i=0; i < racers.length; i++) {
-    console.log(racers[i].name + ` score: ` + racers[i].score);
-  }
   
   return racers
 }
@@ -110,7 +106,7 @@ async function verifyLead (racers) {
   if (racersPosition[0].totalTestSkills > racersPosition[1].totalTestSkills) {
     console.log(`${racersPosition[0].name} passa liderando o trecho!`);
   } else if (racersPosition[0].totalTestSkills === racersPosition[1].totalTestSkills) {
-    console.log(`${racersPosition[0].name} e ${racersPosition[1].name} passaram lado a lado! Ninguém pontua nessa rodada!`);
+    console.log(`Os corredores passaram lado a lado! Ninguém pontua nessa rodada!`);
   } else {
     throw new Error(`Houve um erro na comparação do total de teste de habilidade (block.js linha 101)`);
   }
