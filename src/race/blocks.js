@@ -1,8 +1,7 @@
-import { characters } from '../characters.js';
 import * as utils from './utils.js';
 
-// Determina qual "bloco" de pista será o próximo 
-// Aqui fiz uma mudança para nunca haver um confronto na primeira rodada
+// Determina qual "bloco" de pista será o próximo.  
+// Diferente da versão original, nunca haverá um confronto na primeira rodada
 async function getRandomBlock(round) {
   let random = Math.random();
   let result;
@@ -47,88 +46,100 @@ async function getRandomBlock(round) {
  };
   
 
-    
-//TESTE PARA BLOCOS DE RETA
-async function straigthLane(charactersList) {
- let totalTestSkills = [];
+// Função base da corrida, recebe uma lista de personagens e o tipo de bloco que foi sorteado para então chamar o teste de habilidade
+// em seguida adiciona os resultados em uma lista de corredores com os resultados do teste e chama a função para fazer a comparação de pontuação 
+async function racingLanes(charactersList, laneType) {
+  let racers = [];
 
-    totalTestSkills.push(
-        charactersList[0].diceroll + charactersList[0].speed,
-        charactersList[1].diceroll + charactersList[1].speed
-    );
-
-
-      await utils.logRollResult(
-        charactersList[0].name,
-        "velocidade",
-        charactersList[0].diceroll,
-        charactersList[0].speed
+  for (let i = 0; i < charactersList.length; i++) {
+    let totalTestSkills = raceSkillTest(
+        charactersList[i],
+        laneType
       );
 
-      await utils.logRollResult(
-        charactersList[1].name,
-        "velocidade",
-        charactersList[1].diceroll,
-        charactersList[1].speed
-      );
+    racers.push({
+      ...charactersList[i],       
+      totalTestSkills
+    })
+  }
 
-    console.log("   ");
-    return await verifyBlockWinner (charactersList, totalTestSkills);
+  console.log("   ");
+
+
+  await verifyLead(racers);
+  await raceScore(racers);
+
+  for (let i=0; i < racers.length; i++) {
+    console.log(racers[i].name + ` score: ` + racers[i].score);
+  }
+  
+  return racers
+}
+
+
+// Verifica o total do teste de habilidade dos personagens, recebe o bloco para determinar qual habilidade será utilizada,
+// rola os dados e em seguida faz o log do resultado, retornando o mesmo em integer
+function raceSkillTest(character, block) {
+  let attribute;
+  
+  if (block === 'CURVA') {
+    attribute = character.handling;
+  } else if (block === 'RETA') {
+    attribute = character.speed;
+  } else {
+    //Bloco CONFRONTO
+    attribute = character.power;
+  }
+
+  console.log(
+    `${character.name} 🎲 rolou um dado de ${block} ${character.diceroll} + ${attribute} = ${
+      character.diceroll + attribute
+    }`
+  );
+  
+  return (character.diceroll + attribute);
+}
+
+
+// Faz a verificação das colocações recebendo a lista de corredores e colocando em ordem por resultado de teste de habilidade
+// Retorna a lista de corredores em ordem de posição no bloco/trecho da corrida
+async function verifyLead (racers) {
+
+  let racersPosition = racers.sort((a,b) => b.totalTestSkills - a.totalTestSkills);
+
+  if (racersPosition[0].totalTestSkills > racersPosition[1].totalTestSkills) {
+    console.log(`${racersPosition[0].name} passa liderando o trecho!`);
+  } else if (racersPosition[0].totalTestSkills === racersPosition[1].totalTestSkills) {
+    console.log(`${racersPosition[0].name} e ${racersPosition[1].name} passaram lado a lado! Ninguém pontua nessa rodada!`);
+  } else {
+    throw new Error(`Houve um erro na comparação do total de teste de habilidade (block.js linha 101)`);
+  }
+  
+  console.log("   ");
+  
+  return racersPosition;
 };
 
 
-// TESTE PARA BLOCOS DE CURVA
-async function curveLane(charactersList) {
-    let totalTestSkills = [];
+// Classifica os líderes de cada trecho, em ordem, dando 3 pontos para quem estiver em primeiro, 2 pontos para o segundo e 1 ponto para o terceiro 
+async function raceScore(racerPositions) {
+  for (let i = 0; i < 3; i++) {
+      racerPositions[i].score += + 3 - i;
+  }
 
-    totalTestSkills.push(
-        charactersList[0].diceroll + charactersList[0].handling,
-        charactersList[1].diceroll + charactersList[1].handling
-    );
-
-    await utils.logRollResult(
-        charactersList[0].name,
-        "manobrabilidade",
-        charactersList[0].diceroll,
-        charactersList[0].handling
-    );
-
-    await utils.logRollResult(
-        charactersList[1].name,
-        "manobrabilidade",
-        charactersList[1].diceroll,
-        charactersList[1].handling
-    );
-
-    console.log("   ");
-    return await verifyBlockWinner (charactersList, totalTestSkills);
-};
+  return racerPositions
+}
 
 
-// verificando o vencedor de blocos de retas e curvas
-async function verifyBlockWinner (characters, totalTestSkills) {
-     if (totalTestSkills[0] > totalTestSkills[1]) {
-       console.log(`${characters[0].name} marcou um ponto!`);
-       characters[0].score++;
-    } else if (totalTestSkills[0] < totalTestSkills[1]) {
-      console.log(`${characters[1].name} marcou um ponto!`);
-      characters[1].score++;
-    } else {
-      console.log('Passaram lado a lado! Ninguém pontua nessa rodada!')
-    }
-    console.log("   ");
-};
-
-
-
+//TODO: DESAFIO DIO
 // TESTE PARA BLOCO DE CONFRONTO
-// No caso de blocos de CONFRONTO, o desafio proposto pelo tutor da DIO é adicionar bombas e cascos, com modificações específicas na pontuação
+// No caso de blocos de CONFRONTO, o desafio proposto pelo tutor da DIO é adicionar bombas, turbos e cascos, com modificações específicas na pontuação
 // decidi ir um pouco mais além e adicionar a casca de banana, item do jogo Mario Kart que faz o personagem rodar e perder speed
 // no entando, esse efeito será temporário, somente por um trecho de curva ou reta
 async function battle(charactersList) {
       let powerResult1 = charactersList[0].diceroll + charactersList[0].power;
       let powerResult2 = charactersList[1].diceroll + charactersList[1].power;
-
+      
       console.log(`${charactersList[0].name} entrou em confronto com ${charactersList[1].name}! 🥊`);
 
       console.log("   ");
@@ -166,13 +177,13 @@ async function battle(charactersList) {
 
       if (powerResult1 > powerResult2 && charactersList[1].score === 0) {
         console.log(
-          `${charactersList[0].name} venceu o confronto! Mas ${charactersList[1].name} está zerado! 🐢`
+          `${charactersList[0].name} venceu o confronto! E ${charactersList[1].name} está com zero pontos!`
         );
       }
 
       if (powerResult2 > powerResult1 && charactersList[0].score === 0) {
         console.log(
-          `${charactersList[1].name} venceu o confronto! Mas ${charactersList[0].name} está zerado! 🐢`
+          `${charactersList[1].name} venceu o confronto! E ${charactersList[0].name} está com zero pontos!`
         );
       }
 
@@ -185,5 +196,5 @@ async function battle(charactersList) {
       console.log("   ");
     };
 
-
-    export { getRandomBlock, battle, straigthLane, curveLane };
+    
+export { getRandomBlock, battle, racingLanes };

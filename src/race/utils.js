@@ -9,13 +9,4 @@ async function rollDice(charactersList) {
   return diceResults; 
 }
 
-// Imprime o resultado da rolagem de dados dos jogadores
-async function logRollResult(characterName, block, diceResult, attribute) {
-  console.log(
-    `${characterName} 🎲 rolou um dado de ${block} ${diceResult} + ${attribute} = ${
-      diceResult + attribute
-    }`
-  );
-}
-
-export {rollDice, logRollResult};
+export { rollDice };

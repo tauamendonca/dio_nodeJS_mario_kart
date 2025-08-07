@@ -1,8 +1,7 @@
 <h1>Desafio de projeto DIO Node JS: Mario Kart.JS</h1>
 
 <h4> Professor: Felipe Silva Aguiar</h4>
-<a href = "https://github.com/digitalinnovationone/formacao-nodejs/tree/main/03-projeto-mario-kart">Link para o projeto original</a>
-<br><br>
+Conheça o <a href = "https://github.com/digitalinnovationone/formacao-nodejs/tree/main/03-projeto-mario-kart">projeto original</a>, o código que apresento aqui é uma resposta ao desafio da DIO, onde implementei algumas modificações (vide abaixo)<br><br>
 
   <table>
         <tr>
@@ -84,7 +83,7 @@
 
 <b>Jogadores:</b>
 
-<label for="jogadores-item">✔️ O Computador deve receber dois personagens para disputar a corrida em um objeto cada</label>
+<label for="jogadores-item">✔️ O Computador <s>deve receber dois</s> pode receber dois ou mais personagens para disputar a corrida em um objeto cada (o projeto original permitia somente dois personagens) </label>
 
 <b>Pistas:</b>
 
@@ -131,9 +130,12 @@
 </ul>
 </ul>
 
-<b>Observação:</b>
+<b>Algumas modificações que realizei para implementar os desafios e também aprimorar o código:</b>
 <ul><li>
-Separei as lógicas de corrida, seleção de personagens e dos blocos, componentizado levemente para separar por função.</li>
+Separei as lógicas de corrida, seleção de personagens e dos blocos, componentizado de forma simples para separar as funções utilizadas.</li>
 <li>
-Também modifiquei algumas lógicas, como por exemplo retirei a possibilidade de confrontos na primeira rodada e modifiquei propriedades dos personagens. Vide observações no código para esses casos.</li>
+Também modifiquei algumas lógicas, como por exemplo retirei a possibilidade de confrontos na primeira rodada.</li>
+<li>
+Uma das mudanças necessárias no código foi a troca dos paramêtros utilizados para passar os personagens de maneira que fosse aceita uma lista, para facilitar o uso de N número de personagens ao invés de apenas 2 como no código original
+</li>
 </ul>

@@ -1,6 +1,3 @@
-// Foram passadas para cá as rolagens de dados para simplificar a passagem desses dados sem recorrer a outras variáveis
-// Também foi incluído um boolean para indicar o status de velocidade negativa dada pela banana durante confrontos
-
 export const characters = [
     {
         ID: 1,
@@ -9,8 +6,6 @@ export const characters = [
         handling: 3,
         power: 3,
         score: 0,
-        spin: false,
-        diceroll: 0,
     },
     {
         ID: 2,
@@ -19,8 +14,6 @@ export const characters = [
         handling: 4,
         power: 4,
         score: 0,
-        spin: false,
-        diceroll: 0,
     },
     {
         ID: 3,
@@ -29,8 +22,6 @@ export const characters = [
         handling: 4,
         power: 2,
         score: 0,
-        spin: false,
-        diceroll: 0,
     },
     {
         ID: 4,
@@ -39,8 +30,6 @@ export const characters = [
         handling: 4,
         power: 3,
         score: 0,
-        spin: false,
-        diceroll: 0,
     },
     {
         ID: 5,
@@ -49,8 +38,6 @@ export const characters = [
         handling: 2,
         power: 5,
         score: 0,
-        spin: false,
-        diceroll: 0,
     },
     {
         ID: 6,
@@ -59,7 +46,5 @@ export const characters = [
         handling: 2,
         power: 5,
         score: 0,
-        spin: false,
-        diceroll: 0,
     },
 ];
