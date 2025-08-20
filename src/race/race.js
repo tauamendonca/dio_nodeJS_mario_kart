@@ -1,5 +1,6 @@
 import * as utils from './utils.js';
 import * as blocks from './blocks.js';
+import * as battle from './battle.js';
 
 // Função principal que inicia a corrida
 export async function playRaceEngine(racers) {
@@ -29,7 +30,11 @@ export async function playRaceEngine(racers) {
       }
     }
     
-    racers = await blocks.racingLanes(racers, block);
+    if (block === 'CONFRONTO') {
+      racers = await battle.battle(racers);
+    } else {
+      racers = await blocks.racingLanes(racers, block);  
+    }
   }
 
   return racers;

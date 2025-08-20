@@ -32,18 +32,18 @@ Conheça o <a href = "https://github.com/digitalinnovationone/formacao-nodejs/tr
                 <img src="./docs/peach.gif" alt="Mario Kart" width="60" height="60">
             </td>
             <td style="border: 1px solid black; text-align: center;">
-                <p>Velocidade: 3</p>
+                <p>Velocidade: 2</p>
                 <p>Manobrabilidade: 4</p>
-                <p>Poder: 2</p>
+                <p>Poder: 4</p>
             </td>
               <td style="border: 1px solid black; text-align: center;">
                 <p>Yoshi</p>
                 <img src="./docs/yoshi.gif" alt="Mario Kart" width="60" height="60">
             </td>
             <td style="border: 1px solid black; text-align: center;">
-                <p>Velocidade: 2</p>
-                <p>Manobrabilidade: 4</p>
-                <p>Poder: 3</p>
+                <p>Velocidade: 3</p>
+                <p>Manobrabilidade: 5</p>
+                <p>Poder: 2</p>
             </td>
         </tr>
         <tr>
@@ -52,7 +52,7 @@ Conheça o <a href = "https://github.com/digitalinnovationone/formacao-nodejs/tr
                 <img src="./docs/bowser.gif" alt="Mario Kart" width="60" height="60">
             </td>
             <td style="border: 1px solid black; text-align: center;">
-                <p>Velocidade: 5</p>
+                <p>Velocidade: 3</p>
                 <p>Manobrabilidade: 2</p>
                 <p>Poder: 5</p>
             </td>
@@ -63,7 +63,7 @@ Conheça o <a href = "https://github.com/digitalinnovationone/formacao-nodejs/tr
             <td style="border: 1px solid black; text-align: center;">
                 <p>Velocidade: 3</p>
                 <p>Manobrabilidade: 4</p>
-                <p>Poder: 4</p>
+                <p>Poder: 3</p>
             </td>
             <td style="border: 1px solid black; text-align: center;">
                 <p>Donkey Kong</p>
@@ -71,7 +71,7 @@ Conheça o <a href = "https://github.com/digitalinnovationone/formacao-nodejs/tr
             </td>
             <td style="border: 1px solid black; text-align: center;">
                 <p>Velocidade: 2</p>
-                <p>Manobrabilidade: 2</p>
+                <p>Manobrabilidade: 3</p>
                 <p>Poder: 5</p>
             </td>
         </tr>
@@ -114,17 +114,15 @@ Conheça o <a href = "https://github.com/digitalinnovationone/formacao-nodejs/tr
 </li>
 </ul>
 <li><label for="incluidos-por-mim">Incluídos por mim: <ul>
-    <li><label for="desafios-3-item">✔️ No caso de um confronto também será sorteado aleatoriamente a Casca de Banana (-1 para manobrabilidade e velocidade na próxima rodada - efeito temporário)</label>
+    <li><label for="desafios-3-item">✔️ Permitir seleção de personagem, quantidade de trechos/blocos de corrida e número de jogadores antes do início da corrida</label>
     </li>
-    <li><label for="desafios-4-item">✔️ Permitir seleção de personagem, quantidade de trechos/blocos de corrida e número de jogadores antes do início da corrida</label>
+    <li><label for="desafios-4-item">✔️ Permitir corridas com mais de 2 personagens mas refatorar a lógica para que mantenha os confrontos de 1 contra 1</label>
     </li>
-    <li><label for="desafios-5-item">✔️ Permitir corridas com mais de 2 personagens mas refatorar a lógica para que mantenha os confrontos de 1 contra 1</label>
+    <li><label for="desafios-5-item">✔️ Devido ao item anterior, fazer mudança na regra de negócio: somente trechos de corrida contam para o término da corrida, confrontos não são considerados para o progresso até o fim da corrida</label>
     </li>
-    <li><label for="desafios-6-item">✔️ Devido ao item anterior, fazer mudança na regra de negócio: somente trechos de corrida contam para o término da corrida, confrontos não são considerados para o progresso até o fim da corrida</label>
+    <li><label for="desafios-6-item">✔️ Adiconar pausas de tempo para poder acompanhar o progresso passo a passo da corrida</label>
     </li>
-    <li><label for="desafios-7-item">✔️ Adiconar pausas de tempo para poder acompanhar o progresso passo a passo da corrida</label>
-    </li>
-    <li><label for="desafios-8-item">✔️ Mostrar o resultado completo da corrida (posições de todos os jogadores) e o progresso durante</label>
+    <li><label for="desafios-7-item">✔️ Mostrar o resultado completo da corrida (posições de todos os jogadores) e o progresso durante a mesma</label>
     </li>
 </li>
 </ul>
@@ -134,8 +132,8 @@ Conheça o <a href = "https://github.com/digitalinnovationone/formacao-nodejs/tr
 <ul><li>
 Separei as lógicas de corrida, seleção de personagens e dos blocos, componentizado de forma simples para separar as funções utilizadas.</li>
 <li>
-Também modifiquei algumas lógicas, como por exemplo retirei a possibilidade de confrontos na primeira rodada.</li>
+Também modifiquei algumas lógicas, como por exemplo retirei a possibilidade de confrontos na primeira rodada. O número de modificações é extenso, recomendo olhar comparativamente com o código original.</li>
 <li>
-Uma das mudanças necessárias no código foi a troca dos paramêtros utilizados para passar os personagens de maneira que fosse aceita uma lista, para facilitar o uso de N número de personagens ao invés de apenas 2 como no código original
+Um exemplo foram as mudanças necessárias no código para passar os personagens de maneira que fosse aceita uma lista, facilitando o uso de N número de personagens ao invés de apenas 2 como no original, trocando parâmetros e mudando lógicas de funcionamento do exercício.
 </li>
 </ul>
