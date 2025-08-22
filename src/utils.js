@@ -1,11 +1,17 @@
 import readline from "readline";
+import { characters } from "./characters.js";
 
-// Rola um dado de 6 faces
-async function rollDice(charactersList) {
+function rollD6() {
+  return Math.floor(Math.random() * 6) + 1
+}
+
+// Rola um dado de 6 faces para cada personagem participante e retorna a lista de resultados
+async function rollDices(charactersList) {
   let diceResults = []
     
     for (let i = 0; i < charactersList.length; i++) {
-      diceResults.push(Math.floor(Math.random() * 6) + 1)
+      let rollResult = rollD6();
+      diceResults.push(rollResult);
     }
 
   return diceResults; 
@@ -51,20 +57,21 @@ const rl = readline.createInterface({
 
 
 // Verificador para evitar números incorretos na seleção de personagem
+// Foi adicionado o characters length ali para caso haja um aumento na lista de personagens não haja alteração nessa lógica
 function verifyRacer(newRacer) {
   let intRacer;
 
   try {
     intRacer = parseInt(newRacer);
-    if (Number.isInteger(intRacer)) {
-      if (intRacer < 1 || intRacer > 6) {
-        console.log("Por favor, digite um número de 1 a 6");
+    if (checkNumber(intRacer)) {
+      if (intRacer > characters.length) {
+        console.log(`Por favor, digite um número de 1 a ${characters.length}`);
         return false;
       } else {
         return true;
       }
     } else {
-      console.log("Por favor digite um número válido, de 1 a 6");
+      console.log(`Por favor, digite um número válido de 1 a ${characters.length}`);
       return false;
     }
   } catch(e) {
@@ -73,4 +80,15 @@ function verifyRacer(newRacer) {
   }
 };
 
-export { rollDice, raceSkillTest, askQuestion, verifyRacer }
+
+// 1e10000 = "Infinito"
+function checkNumber(num){
+  if (!isNaN(num) && num > 0 && num !== 1e10000) {
+    return true
+  } else {
+    return false;
+  }
+}
+
+
+export { checkNumber, rollDices, raceSkillTest, askQuestion, verifyRacer, rollD6 }

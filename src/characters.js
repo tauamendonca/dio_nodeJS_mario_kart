@@ -1,6 +1,7 @@
 export const characters = [
     {
         ID: 1,
+        icon: "🪠",
         name: "Mario",
         speed: 4,
         handling: 3,
@@ -9,6 +10,7 @@ export const characters = [
     },
     {
         ID: 2,
+        icon: "👷",
         name: "Luigi",
         speed: 3,
         handling: 4,
@@ -17,6 +19,7 @@ export const characters = [
     },
     {
         ID: 3,
+        icon: "👸",
         name: "Peach",
         speed: 2,
         handling: 4,
@@ -25,6 +28,7 @@ export const characters = [
     },
     {
         ID: 4,
+        icon: "🦖",
         name: "Yoshi",
         speed: 3,
         handling: 5,
@@ -33,6 +37,7 @@ export const characters = [
     },
     {
         ID: 5,
+        icon: "🐲",
         name: "Bowser",
         speed: 3,
         handling: 2,
@@ -41,10 +46,20 @@ export const characters = [
     },
     {
         ID: 6,
+        icon: "🐒",
         name: "Donkey Kong",
         speed: 2,
         handling: 3,
         power: 5,
+        score: 0,
+    },
+     {
+        ID: 7,
+        icon: "🍄",
+        name: "Toad",
+        speed: 3,
+        handling: 3,
+        power: 3,
         score: 0,
     },
 ];

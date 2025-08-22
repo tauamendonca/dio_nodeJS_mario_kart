@@ -114,15 +114,19 @@ Conheça o <a href = "https://github.com/digitalinnovationone/formacao-nodejs/tr
 </li>
 </ul>
 <li><label for="incluidos-por-mim">Incluídos por mim: <ul>
-    <li><label for="desafios-3-item">✔️ Permitir seleção de personagem, quantidade de trechos/blocos de corrida e número de jogadores antes do início da corrida</label>
-    </li>
     <li><label for="desafios-4-item">✔️ Permitir corridas com mais de 2 personagens mas refatorar a lógica para que mantenha os confrontos de 1 contra 1</label>
     </li>
-    <li><label for="desafios-5-item">✔️ Devido ao item anterior, fazer mudança na regra de negócio: somente trechos de corrida contam para o término da corrida, confrontos não são considerados para o progresso até o fim da corrida</label>
+    <li><label for="desafios-3-item">✔️ Permitir seleção quantos corredores irão participar, quais os personagens e a quantidade de trechos/blocos de corrida que irão ser percorridos</label>
+    </li>
+    <li><label for="desafios-5-item">✔️ Devido ao item anterior, fazer com que somente trechos de corrida contem para o término da corrida, confrontos não serão considerados para o progresso até o fim da corrida</label>
     </li>
     <li><label for="desafios-6-item">✔️ Adiconar pausas de tempo para poder acompanhar o progresso passo a passo da corrida</label>
     </li>
     <li><label for="desafios-7-item">✔️ Mostrar o resultado completo da corrida (posições de todos os jogadores) e o progresso durante a mesma</label>
+    </li>
+    <li><label for="desafios-8-item">✔️ Permitir a inclusão de quantos personagens quiser sem ter que alterar nada além do banco de dados de personagens</label>
+    </li>
+    <li><label for="desafios-9-item">✔️ Há agora uma lista de items possíveis com valores de pontuação diferentes, não somente casco e bomba, podendo adicionar mais itens sem atrapalhar a lógica de confronto</label>
     </li>
 </li>
 </ul>
@@ -135,5 +139,8 @@ Separei as lógicas de corrida, seleção de personagens e dos blocos, component
 Também modifiquei algumas lógicas, como por exemplo retirei a possibilidade de confrontos na primeira rodada. O número de modificações é extenso, recomendo olhar comparativamente com o código original.</li>
 <li>
 Um exemplo foram as mudanças necessárias no código para passar os personagens de maneira que fosse aceita uma lista, facilitando o uso de N número de personagens ao invés de apenas 2 como no original, trocando parâmetros e mudando lógicas de funcionamento do exercício.
+</li>
+<li>
+Foi adicionada lógica para caso sejam acrescidos novos personagens na lista de personagens que está no arquivo characters.js, a lógica do jogo não seja afetada, podendo acrescentar qualquer número de novos corredores
 </li>
 </ul>

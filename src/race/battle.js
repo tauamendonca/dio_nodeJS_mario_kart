@@ -1,68 +1,74 @@
-import * as utils from './utils.js';
+import { items } from './items.js';
+import { raceSkillTest, rollD6 } from '../utils.js';
 
-//TODO: DESAFIO DIO
 // TESTE PARA BLOCO DE CONFRONTO
 // No caso de blocos de CONFRONTO, o desafio proposto pelo tutor da DIO é adicionar bombas, turbos e cascos, com modificações específicas na pontuação
-// decidi ir um pouco mais além e adicionar a casca de banana, item do jogo Mario Kart que faz o personagem rodar e perder speed
-// no entando, esse efeito será temporário, somente por um trecho de curva ou reta
+// Adicionei uma lista de items com diferentes valores no arquivo items.js. Com isso é possível adicionar mais items a vontade sem afetar a lógica de confronto
 async function battle(charactersList) {
-      let powerResult1 = charactersList[0].diceroll + charactersList[0].power;
-      let powerResult2 = charactersList[1].diceroll + charactersList[1].power;
+      let block = "CONFRONTO";
+      let char1; 
+      let char2;
+
+      // Seleciona 2 corredores aleatoriamente para batalhar
+      do {
+        let roll1 = ~~Math.random() * charactersList.length;
+        let roll2 = ~~Math.random() * charactersList.length;
+        char1 = charactersList[roll1];
+        char2 = charactersList[roll2];
+      } while (char1 === char2)
+
+      console.log(char1, char2);
+  
+      let char1Index = charactersList.lastIndexOf(char1.ID); 
+      let char2Index = charactersList.lastIndexOf(char2.ID); 
       
-      console.log(`${charactersList[0].name} entrou em confronto com ${charactersList[1].name}! 🥊`);
+      console.log(char1Index, char2Index);
+      
+      console.log(`${char1.name} entrou em confronto com ${char2.name}! 🥊`);
 
       console.log("   ");
 
-      await utils.logRollResult(
-        charactersList[0].name,
-        "poder",
-        charactersList[0].diceroll,
-        charactersList[0].power
-      );
-
-      await utils.logRollResult(
-        charactersList[1].name,
-        "poder",
-        charactersList[1].diceroll,
-        charactersList[1].power
-      );
-
-      console.log("   ");
-
-      if (powerResult1 > powerResult2 && charactersList[1].score > 0) {
-        console.log(
-          `${charactersList[0].name} venceu o confronto! ${charactersList[1].name} perdeu 1 ponto 🐢`
-        );
-        charactersList[1].score--;
-      }
-
-      if (powerResult2 > powerResult1 && charactersList[0].score > 0) {
-        console.log(
-          `${charactersList[1].name} venceu o confronto! ${charactersList[0].name} perdeu 1 ponto 🐢`
-        );
-        charactersList[0].score--;
-      }
-
-
-      if (powerResult1 > powerResult2 && charactersList[1].score === 0) {
-        console.log(
-          `${charactersList[0].name} venceu o confronto! E ${charactersList[1].name} está com zero pontos!`
-        );
-      }
-
-      if (powerResult2 > powerResult1 && charactersList[0].score === 0) {
-        console.log(
-          `${charactersList[1].name} venceu o confronto! E ${charactersList[0].name} está com zero pontos!`
-        );
-      }
-
-      console.log(
-        powerResult2 === powerResult1
-          ? "Confronto empatado! Nenhum ponto foi perdido"
-          : ""
-      );
+      //Recebe os resultados do teste da habilidade Poder
+      let char1Power = raceSkillTest(char1, block);
+      let char2Power = raceSkillTest(char2, block);      
   
       console.log("   ");
+
+      //Determina qual item foi utilizado na batalha
+      //Adicionado uma chance de 33% de conseguir um turbo, que dá +1 ponto ao vencedor
+      let randomItem = items[Math.floor(Math.random() * items.length)];
+
+      if (char1Power > char2Power) {
+        console.log(
+          `${char1.name} usou ${randomItem.name}! ${char2.name} perdeu ${randomItem.points} ponto(s)`
+        );
+        charactersList[char2Index].score -= randomItem.points;
+        let d6 = rollD6(); 
+        if ( d6 >= 5) {
+            console.log(`${char1.name} conseguiu um cogumelo turbo! Ganhou 1 ponto!`);
+          charactersList[char1Index].score += 1;
+        }
+      }
+
+      if (char2Power > char1Power) {
+        console.log(
+          `${char2.name} usou ${randomItem.name}! ${char1.name} perdeu ${randomItem.points} ponto(s)`
+        );
+        charactersList[char1Index].score -= randomItem.points;
+        let d6 = rollD6(); 
+        if ( d6 >= 5) {
+            console.log(`${char2.name} conseguiu um cogumelo turbo! Ganhou 1 ponto!`);
+          charactersList[char2Index].score += 1;
+        }
+      }
+
+      if (char1Power === char2Power) {
+        console.log( "Confronto empatado! Nenhum ponto foi perdido");
+      }
+  
+      console.log("   ");
+
+      return charactersList;
     };
 
 
