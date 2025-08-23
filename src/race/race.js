@@ -6,23 +6,52 @@ import { racingLanes } from './lanes.js';
 // Função principal que inicia a corrida
 export async function playRaceEngine(racers, raceLength) {
 
-  console.log(
-    `🏁🚨 MARIO KART! 
-      A corrida está para começar!
-      Participantes: 
-      ${racers[0].name}`
-  );
+  console.log(`
+
+  ======================================================================================
+
+                            🚦🚦🚦 MARIO KART! 🚦🚦🚦
+
+                           A corrida está para começar!
+    
+                                 Participantes: 
+  `);
+
+  for (let i = 0; i < racers.length; i++) {
+    console.log(`                                  ${racers[i].icon}  ${racers[i].name}`)
+  }
+
+  console.log(` 
+        
+  ======================================================================================
+  
+  `);
 
   for (let round = 1; round <= raceLength; round++) {
-    console.log("-----------------------------");
-    console.log("   ");
-    console.log(`🏁 Rodada ${round}`);
-    console.log("   ");
-
     // sorteia o bloco e anuncia o que aconteceu
     let block = await getRandomBlock(round);
-
+    
+    
+    if (block !== "CONFRONTO") console.log(`🏁 Rodada ${round}`);
+    if (block === "CONFRONTO") console.log(`⚔️ CONFRONTO`);
+    
     console.log("   ");
+
+  if (block === "CURVA") {
+    let random = Math.random();
+    random > 0.50 ? console.log(`UMA CURVA PARA A ESQUERDA!`) : console.log(`UMA CURVA PARA A DIREITA!`); 
+  } else if (block === "RETA") {
+    console.log(`OS CORREDORES ENTRAM EM UMA RETA!`);
+  } else if (block === "CONFRONTO") {
+    console.log(`É HORA DO CONFRONTO!`);
+  } else {
+    throw (e) => console.log(`HOUVE UM ERRO NA SELEÇÃO DE BLOCOS: ${e}`)
+  }
+       
+       
+  
+
+   console.log("   ");
 
     // rola os dados
     let diceResults = await rollDices(racers);
@@ -35,11 +64,17 @@ export async function playRaceEngine(racers, raceLength) {
     }
     
     if (block === 'CONFRONTO') {
-      racers = await battle(racers);
+      console.log('CONFRONTO OCORRE, NADA ACOTECE, FEIJOADA');
+      console.log(' ');
+      // racers = await battle(racers);
+      round -= 1;
     } else {
       racers = await racingLanes(racers, block);  
     }
   }
+
+  console.log("----------------------------------------------------------");
+  console.log("   ");
 
   return racers;
 }
@@ -52,37 +87,22 @@ async function getRandomBlock(round) {
   let result;
   
   if (round === 1) {
-      switch (true) {
-        case random > 0.66:
-            console.log(`UMA CURVA PARA A DIREITA!`);
+      if (random > 0.50) {
             result = "CURVA";
-            break;
-        case random < 0.33:
-            console.log(`UMA CURVA PARA A ESQUERDA!`);
-            result = "CURVA";
-            break;
-        default:
-            console.log(`OS CORREDORES ENTRAM EM UMA RETA!`);
-            result = "RETA";    
-      } 
+      } else {
+        result = "RETA";    
+      }
   }
   
   if (round > 1) {
     switch (true) {
         case random > 0.66:
-            console.log(`OS CORREDORES ENTRAM EM UMA RETA!`);
             result = "RETA";
             break;
         case random < 0.33:
-            if (random < 0.16) {  
-                console.log(`UMA CURVA PARA A ESQUERDA!`);
-            } else {
-                console.log(`UMA CURVA PARA A DIREITA!`);
-            }
             result = "CURVA";
             break;
         default:
-            console.log(`É HORA DO CONFRONTO!`);
             result = "CONFRONTO";
       }  
   }
@@ -115,7 +135,9 @@ export async function declareWinner(racerList) {
   console.log("    ");
   console.log("=====================================");
 
-  await setTimeout(() => console.log(''), 2000);
+  // Foi necessário incluir pois devido a ter incluído uma interface o readline (utils, linha 54) estava impedindo o processo de fechar sozinho por aguardar entradas
+  // Testado com o package why-is-node-running para determinar a causa 
+  process.exit();
 }
 
 

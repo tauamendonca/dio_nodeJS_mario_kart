@@ -7,32 +7,7 @@ import { verifyRacer, askQuestion, checkNumber } from './utils.js';
 export async function playerSelect() {
   let racers = [];
 
-  console.log(`
-  ======================================================================================
-  
-                  --- Selecione os participantes da corrida---
-  Digite primeiro a quantidade de corredores, de 1 a ${characters.length} e em seguida os digítos de cada
-  corredor que estará participando
-  
-  ======================================================================================
-  `);
-   
-  for (let i = 0; i < characters.length; i++) {
-    console.log(`${characters[i].ID}  ${characters[i].icon}  ${characters[i].name}  || Velocidade: ${characters[i].speed} | Manobrabilidade: ${characters[i].handling} | Poder: ${characters[i].power}`)
-  }
-
-  console.log('');
-
-  // Resultado esperado
-  // 1 🪠  Mario       || Velocidade: 4 | Manobrabilidade: 3 | poder: 3
-  // 2 👷 Luigi       || Velocidade: 3 | Manobrabilidade: 4 | poder: 3
-  // 3 👸 Peach       || Velocidade: 2 | Manobrabilidade: 4 | poder: 4
-  // 4 🦖 Yoshi       || Velocidade: 3 | Manobrabilidade: 5 | poder: 2
-  // 5 🐲 Bowser      || Velocidade: 3 | Manobrabilidade: 2 | poder: 5
-  // 6 🐒 Donkey Kong || Velocidade: 2 | Manobrabilidade: 3 | poder: 5
-
-  console.log('======================================================================================');
-  
+  selectionScreen();
   
   let newRacersSelected = false;
   let validNumberOfParticipants = false;
@@ -49,7 +24,8 @@ export async function playerSelect() {
     }
   } while (validNumberOfParticipants === false);
   
-  
+  console.log('  ');
+
   do {
 
       do {
@@ -81,7 +57,8 @@ export async function playerSelect() {
   
   console.log(`Corredores selecionados!
   
-  ============================`);
+  ============================
+  `);
   return racers
 }
 
@@ -94,9 +71,45 @@ export async function selectLength() {
     raceLength = await askQuestion("Quantas rodadas a corrida terá? ");
     if (checkNumber(raceLength)) {
       validLength = true;
+        console.log(`
+  A corrida terá ${raceLength} rodadas! Confrontos podem ocorrer entre elas, fiquem ligados!
+  
+======================================================================================`);
       return raceLength;
     } else {
       console.log('Por favor, insira um número válido.');
     }
   } while (validLength === false);
+
+}
+
+
+
+function selectionScreen() {
+  console.log(`
+  ======================================================================================
+  
+                  --- Selecione os participantes da corrida---
+  Digite primeiro a quantidade de corredores, de 1 a ${characters.length} e em seguida os digítos de cada
+  corredor que estará participando
+  
+  ======================================================================================
+  `);
+   
+  for (let i = 0; i < characters.length; i++) {
+    console.log(`${characters[i].ID}  ${characters[i].icon}  ${characters[i].name}  || Velocidade: ${characters[i].speed} | Manobrabilidade: ${characters[i].handling} | Poder: ${characters[i].power}`)
+  }
+
+  console.log('');
+
+  // Resultado esperado
+  // 1 🪠  Mario       || Velocidade: 4 | Manobrabilidade: 3 | poder: 3
+  // 2 👷 Luigi       || Velocidade: 3 | Manobrabilidade: 4 | poder: 3
+  // 3 👸 Peach       || Velocidade: 2 | Manobrabilidade: 4 | poder: 4
+  // 4 🦖 Yoshi       || Velocidade: 3 | Manobrabilidade: 5 | poder: 2
+  // 5 🐲 Bowser      || Velocidade: 3 | Manobrabilidade: 2 | poder: 5
+  // 6 🐒 Donkey Kong || Velocidade: 2 | Manobrabilidade: 3 | poder: 5
+
+  console.log('======================================================================================');
+  console.log('  ');  
 }
