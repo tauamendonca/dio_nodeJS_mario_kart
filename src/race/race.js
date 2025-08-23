@@ -1,4 +1,4 @@
-import { rollDices } from '../utils.js';
+import { rollDices, wait } from '../utils.js';
 import { battle } from './battle.js';
 import { racingLanes } from './lanes.js';
 
@@ -26,6 +26,8 @@ export async function playRaceEngine(racers, raceLength) {
   ======================================================================================
   
   `);
+  
+  await wait(1000)
 
   for (let round = 1; round <= raceLength; round++) {
     // sorteia o bloco e anuncia o que aconteceu
@@ -71,10 +73,14 @@ export async function playRaceEngine(racers, raceLength) {
     } else {
       racers = await racingLanes(racers, block);  
     }
+
+    console.log("----------------------------------------------------------");
+    console.log("   ");
+
+    await wait(1000)
   }
 
-  console.log("----------------------------------------------------------");
-  console.log("   ");
+
 
   return racers;
 }
@@ -112,6 +118,8 @@ async function getRandomBlock(round) {
   
 
 export async function declareWinner(racerList) {
+  await wait(500)
+
   console.log("    ");
   console.log("=====================================");
   console.log("🏁🏁🏁🏁 RESULTADO FINAL 🏁🏁🏁🏁");

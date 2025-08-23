@@ -90,5 +90,10 @@ function checkNumber(num){
   }
 }
 
+function wait(ms) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+}
 
-export { checkNumber, rollDices, raceSkillTest, askQuestion, verifyRacer, rollD6 }
+export { checkNumber, rollDices, raceSkillTest, askQuestion, verifyRacer, rollD6, wait }
