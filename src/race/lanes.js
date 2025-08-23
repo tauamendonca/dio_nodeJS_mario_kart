@@ -20,8 +20,7 @@ async function racingLanes(charactersList, laneType) {
 
   console.log("   ");
 
-  await verifyLead(racers);
-  await raceScore(racers);
+  racers = await verifyLead(racers);
   
   return racers
 }
@@ -39,6 +38,7 @@ async function verifyLead (racers) {
         if (racers.length > 2) {
             console.log(`E logo atrás, o terceiro colocado ${racersPosition[2].name} passa, e ganha 1 ponto!`);
         }
+        await raceScore(racersPosition);
     } else if (racersPosition[0].totalTestSkills === racersPosition[1].totalTestSkills) {
         console.log(`Os corredores passaram lado a lado! Ninguém pontua nessa rodada!`);
   } else {

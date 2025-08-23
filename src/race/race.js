@@ -1,4 +1,4 @@
-import { rollDices, wait } from '../utils.js';
+import { rollDices, wait, viewRacePositions } from '../utils.js';
 import { battle } from './battle.js';
 import { racingLanes } from './lanes.js';
 
@@ -66,13 +66,19 @@ export async function playRaceEngine(racers, raceLength) {
     }
     
     if (block === 'CONFRONTO') {
-      console.log('CONFRONTO OCORRE, NADA ACOTECE, FEIJOADA');
-      console.log(' ');
-      // racers = await battle(racers);
+      racers = await battle(racers);
       round -= 1;
+      
+      // Caso queira acompanhar passo a passo, utilizar o código comentado abaixo
+      // await viewRacePositions(racers);
+      
     } else {
-      racers = await racingLanes(racers, block);  
-    }
+      racers = await racingLanes(racers, block);
+
+      // await viewRacePositions(racers);
+    };
+
+    
 
     console.log("----------------------------------------------------------");
     console.log("   ");
@@ -126,11 +132,7 @@ export async function declareWinner(racerList) {
   console.log("=====================================");
   console.log("    ");
 
-  racerList.sort((a, b) => b.score - a.score);
-
-  for (let i = 0; i < racerList.length; i++) {
-    console.log(`POSIÇÃO ${i + 1}º --- ${racerList[i].name} --- ${racerList[i].score} ponto(s)`);   
-  }
+  viewRacePositions(racerList);
 
   console.log("    ");
 

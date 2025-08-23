@@ -26,36 +26,42 @@ export async function playerSelect() {
   
   console.log('  ');
 
-  do {
-
+  if (parseInt(playerNumber) === characters.length) {
+      racers = characters;
+      console.log(`Todos os corredores irão participar da corrida!`);
+  } else {
       do {
-        newRacer = await askQuestion("Digite o número de um dos corredores quer irá participar: ");
-        validRacerNumber = verifyRacer(newRacer);
-      } while (validRacerNumber === false);
 
-      if (newRacer !== null) {
-        if (racers.includes(characters[newRacer - 1])) {
-          console.log("Corredor já participando.");
-          console.log(" ");
-        } else {
-          console.log(`${characters[newRacer - 1].name} foi selecionado.`);
-          racers.push(characters[newRacer - 1]);
-          console.log(" ");
-        }
-      } else {
-        console.log("Corredor já participante ou número incorreto. Digite um novo número: ");
-        console.log(" ");
-      }
+          do {
+            newRacer = await askQuestion("Digite o número de um dos corredores quer irá participar: ");
+            validRacerNumber = verifyRacer(newRacer);
+          } while (validRacerNumber === false);
 
-       
-      if (racers.length === parseInt(playerNumber)) {
-        newRacersSelected = true;
-      }
+          if (newRacer !== null) {
+            if (racers.includes(characters[newRacer - 1])) {
+              console.log("Corredor já participando.");
+              console.log(" ");
+            } else {
+              console.log(`${characters[newRacer - 1].name} foi selecionado.`);
+              racers.push(characters[newRacer - 1]);
+              console.log(" ");
+            }
+          } else {
+            console.log("Corredor já participante ou número incorreto. Digite um novo número: ");
+            console.log(" ");
+          }
 
-  } while (newRacersSelected === false);
+          
+          if (racers.length === parseInt(playerNumber)) {
+            newRacersSelected = true;
+          }
+
+      } while (newRacersSelected === false);
+      
+      console.log(`Corredores selecionados!`);
+  }
   
-  
-  console.log(`Corredores selecionados!
+  console.log(`
   
   ============================
   `);

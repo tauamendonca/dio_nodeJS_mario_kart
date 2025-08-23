@@ -96,4 +96,12 @@ function wait(ms) {
     });
 }
 
-export { checkNumber, rollDices, raceSkillTest, askQuestion, verifyRacer, rollD6, wait }
+async function viewRacePositions(racerList) {
+    racerList.sort((a, b) => b.score - a.score);
+
+  for (let i = 0; i < racerList.length; i++) {
+    console.log(`POSIÇÃO ${i + 1}º --- ${racerList[i].name} --- ${racerList[i].score} ponto(s)`);   
+  }
+}
+
+export { checkNumber, rollDices, raceSkillTest, askQuestion, verifyRacer, rollD6, wait, viewRacePositions }
